@@ -9,7 +9,7 @@ public class BallController : MonoBehaviour
     bool started;
     bool gameOver;
     Rigidbody rb;
-
+    public GameObject particle;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -59,5 +59,15 @@ public class BallController : MonoBehaviour
         }
 
 
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.tag == "Diamond")
+        {
+            GameObject part =  Instantiate(particle, col.gameObject.transform.position, Quaternion.identity) as GameObject;
+            Destroy(col.gameObject);
+            Destroy(part, 1f);
+        }
     }
 }
